@@ -69,7 +69,7 @@ const display = (str) => {
 };
 
 const negativeToggle = () => {
-    if (operated === false) {
+    if (equaled === false) {
         if (input.includes("-")) {
             input.shift();
         } else {
@@ -77,8 +77,13 @@ const negativeToggle = () => {
         }
         display(input.join(''));
     } else {
-        num1 *= -1;
-        display(num1);
+        if (num1.includes("-")) {
+            num1 = num1.slice(1);
+            display(num1);
+        } else {
+            num1 = "-" + num1;
+            display(num1);
+        }
     }
 };
 
