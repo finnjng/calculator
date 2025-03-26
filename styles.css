@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'digital';
+    src: url("./digital-7.mono.ttf");
+}
+
+* {
+    font-family: "Quicksand", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: #E06E1E;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    background-color: #D8D1C1;
+    flex-direction: column;
+    height: 550px;
+    width: 500px;
+    border-radius: 20px;
+    border: 14px solid #bdb9ae;
+    border-radius: 8px;
+    border-top: 0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-style: outset;
+}
+
+.display {
+    flex: 2;
+    padding: 8px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #30527F;
+    background-color: #EBE8E0;
+    margin: 20px;
+    border-radius: 15px;
+}
+
+.section,
+.sectionLast {
+    display: flex;
+    flex: 1.2;
+    margin: 15px 20px 0 20px;
+    border-radius: 10px;
+    justify-content: space-between;
+}
+
+.sectionLast {
+    margin-bottom: 20px;
+}
+
+button {
+    width: 105px;
+    font-size: 20px;
+    font-weight: 800;
+    background-color: #EBE8E0;
+    color: #30527F;
+    border: 8px solid #E2DFD4;
+    border-radius: 8px;
+    border-top: 0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-style: outset;
+}
+
+.buttonR {
+    background-color: #E06E1E;
+    border-color: #FA8836;
+}
+
+.buttonT {
+    color: white;
+    background-color: #30527F;
+    border-color: #476B98;
+}
+
+button:active {
+    transform: translateY(6px);
+}
+
+.op {
+    font-size: 18px;
+    font-weight: 800;
+    color: #E06E1E;
+    align-self: flex-end;
+    height: 18px;
+    margin: 0 4px 5px 0;
+}
+
+.num {
+    align-self: flex-end;
+    font-family: 'digital';
+    font-size: 82px;
+    flex: 1;
+}
+
+.upper{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.acc{
+    margin: 0 4px 8px 0;
+    color: #5073a0;
+    font-family: 'digital';
+    font-weight: bold;
+    font-size: 20px;
+    align-self: flex-end;
+}
+
+.key-press{
+    transform: translateY(6px);
+}
+
+
