@@ -90,108 +90,110 @@ const negativeToggle = () => {
 display(num1);
 
 btnContainer.addEventListener("click", (e) => {
-    if (isOperator(e.target.textContent)) { //if operator is clicked
-        if (!operator) {
-            num1 = equaled ? num1 : input.join('');
+    if (e.target.tagName === "BUTTON") {
+        if (isOperator(e.target.textContent)) { //if operator is clicked
+            if (!operator) {
+                num1 = equaled ? num1 : input.join('');
+            }
+            if (operator && operated === false) {
+                num1 = toRound(operate(operator, num1, input.join('')));
+                display(num1);
+            }
+            operator = e.target.textContent;
+            op.textContent = e.target.textContent;
+            acc.textContent = num1 === '' ? 0 : num1 === Infinity ? "Undefined" : num1;
+            operated = true;
+            toClear = true;
+            equaled = false;
         }
-        if (operator && operated === false) {
+        if (!isNaN(e.target.textContent) &&
+            input.length <= 9 &&
+            !(e.target.id === "backspace" || e.target.closest("#backspace"))) { //if number is clicked
+            if (input.includes("%")) {
+                num1 = operator ? operate(operator, num1, input.join('')) : input.join('');
+                acc.textContent = num1;
+                operator = "x";
+                op.textContent = operator;
+                operated = true;
+            }
+
+            if (toClear) {
+                clearInput();
+                toClear = false;
+            }
+            if (input.length < 9 && !(input.length == 0 && e.target.textContent == "0")) {
+                input.push(e.target.textContent);
+            }
+            display(input.length == 0 ? 0 : input.join(''));
+            operated = false;
+            equaled = false;
+        }
+
+        if (e.target.textContent === "=" && operator && operated === false) {
             num1 = toRound(operate(operator, num1, input.join('')));
             display(num1);
-        }
-        operator = e.target.textContent;
-        op.textContent = e.target.textContent;
-        acc.textContent = num1 === '' ? 0 : num1 === Infinity ? "Undefined" : num1;
-        operated = true;
-        toClear = true;
-        equaled = false;
-    }
-    if (!isNaN(e.target.textContent) &&
-        input.length <= 9 &&
-        !(e.target.id === "backspace" || e.target.closest("#backspace"))) { //if number is clicked
-        if (input.includes("%")) {
-            num1 = operator ? operate(operator, num1, input.join('')) : input.join('');
-            acc.textContent = num1;
-            operator = "x";
+            acc.textContent = num1 === Infinity ? "Undefined" : num1;
+            toClear = true;
+            operator = null;
             op.textContent = operator;
             operated = true;
+            equaled = true;
         }
 
-        if (toClear) {
+        if (e.target.textContent === "AC") {
             clearInput();
-            toClear = false;
-        }
-        if (input.length < 9 && !(input.length == 0 && e.target.textContent == "0")) {
-            input.push(e.target.textContent);
-        }
-        display(input.length == 0 ? 0 : input.join(''));
-        operated = false;
-        equaled = false;
-    }
-
-    if (e.target.textContent === "=" && operator && operated === false) {
-        num1 = toRound(operate(operator, num1, input.join('')));
-        display(num1);
-        acc.textContent = num1 === Infinity ? "Undefined" : num1;
-        toClear = true;
-        operator = null;
-        op.textContent = operator;
-        operated = true;
-        equaled = true;
-    }
-
-    if (e.target.textContent === "AC") {
-        clearInput();
-        num1 = 0;
-        display(num1);
-        operator = null;
-        op.textContent = operator;
-        acc.textContent = null;
-    }
-
-    if (e.target.id === "backspace" || e.target.closest("#backspace")) {
-        if (operated === false) {
-            input.pop();
-            display(input.length == 0 ? 0 : input.join(''));
-        } else {
-            num1 = Math.floor(num1 / 10);
+            num1 = 0;
             display(num1);
+            operator = null;
+            op.textContent = operator;
+            acc.textContent = null;
         }
-    }
 
-    if (e.target.textContent === "+/-") {
-        negativeToggle();
-    }
-
-    if (e.target.textContent === ".") {
-        if (operated === false && !input.includes(".") && !input.includes("0.")) {
-            input.push(input.length == 0 ? "0." : ".");
-            display(input.join(''));
-        } else if (operated === true) {
-            clearInput();
-            input.push("0.");
-            display(input.join(''));
-            toClear = false;
-        }
-    }
-
-    if (e.target.textContent === "%") {
-        if (!equaled) {
-            if (!input.toString().includes("%")) {
-                input.push("%");
-                display(input.join(''));
-                toClear = true;
+        if (e.target.id === "backspace" || e.target.closest("#backspace")) {
+            if (operated === false) {
+                input.pop();
+                display(input.length == 0 ? 0 : input.join(''));
             } else {
-                input.pop("%");
-                display(input.join(''));
+                num1 = Math.floor(num1 / 10);
+                display(num1);
             }
-        } else {
-            if (!num1.toString().includes("%")) {
-                num1 = num1 + "%";
-                display(num1);
-                toClear = true;
+        }
+
+        if (e.target.textContent === "+/-") {
+            negativeToggle();
+        }
+
+        if (e.target.textContent === ".") {
+            if (operated === false && !input.includes(".") && !input.includes("0.")) {
+                input.push(input.length == 0 ? "0." : ".");
+                display(input.join(''));
+            } else if (operated === true) {
+                clearInput();
+                input.push("0.");
+                display(input.join(''));
+                toClear = false;
+            }
+        }
+
+        if (e.target.textContent === "%") {
+            if (!equaled) {
+                if (!input.toString().includes("%")) {
+                    input.push("%");
+                    display(input.join(''));
+                    toClear = true;
+                } else {
+                    input.pop("%");
+                    display(input.join(''));
+                }
             } else {
-                num1 = num1.toString().slice(0, -1);
-                display(num1);
+                if (!num1.toString().includes("%")) {
+                    num1 = num1 + "%";
+                    display(num1);
+                    toClear = true;
+                } else {
+                    num1 = num1.toString().slice(0, -1);
+                    display(num1);
+                }
             }
         }
     }
