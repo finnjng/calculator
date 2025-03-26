@@ -107,13 +107,13 @@ button:active {
     flex: 1;
 }
 
-.upper{
+.upper {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.acc{
+.acc {
     margin: 0 4px 8px 0;
     color: #5073a0;
     font-family: 'digital';
@@ -122,8 +122,10 @@ button:active {
     align-self: flex-end;
 }
 
-.key-press{
+.key-press {
     transform: translateY(6px);
 }
 
-
+.fa-delete-left {
+    pointer-events: none !important;
+}

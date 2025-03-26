@@ -148,8 +148,9 @@ btnContainer.addEventListener("click", (e) => {
             op.textContent = operator;
             acc.textContent = null;
         }
-
+        console.log(e.target.closest("button"), "HERE")
         if (e.target.id === "backspace" || e.target.closest("#backspace")) {
+            console.log("in")
             if (operated === false) {
                 input.pop();
                 display(input.length == 0 ? 0 : input.join(''));
